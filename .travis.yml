@@ -18,7 +18,7 @@ stages:
 jobs:
   include:
     - os: 'windows'
-      #language: 'generic'
+      language: node_js
       install:
         - choco install python3 --version 3.7.0
         - python -m pip install -U pip
