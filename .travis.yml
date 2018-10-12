@@ -20,7 +20,7 @@ jobs:
     - os: 'windows'
       language: 'go'
       install:
-        - choco install python3 --version 3.7.0
+        - choco install python3
         - python -m pip install -U pip
         - pip install tox coveralls
 #    - python: '2.7'
