@@ -21,9 +21,9 @@ jobs:
       language: 'go'
       install:
         - choco install python3
-        - refreshenv
+        #- refreshenv
         
-        - which python
+        #- which python
         - "/c/Python37/python -m pip install -U pip"
         - "/c/Python37/python -m pip install tox coveralls"
       script:
