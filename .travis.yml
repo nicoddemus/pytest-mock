@@ -20,7 +20,7 @@ jobs:
     - os: 'windows'
       language: 'go'
       install:
-        - where python
+        - which python
         - choco install python3
         - python -m pip install -U pip
         - pip install tox coveralls
