@@ -22,6 +22,7 @@ jobs:
       install:
         - choco install python3
         - refreshenv
+        
         - which python
         - "c:\Python37\python -m pip install -U pip"
         - "c:\Python37\python -m pip install tox coveralls"
