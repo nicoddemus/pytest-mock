@@ -1,4 +1,4 @@
-name: Python application
+name: pytest plugin
 
 on: [push]
 
@@ -6,7 +6,7 @@ jobs:
   build:
 
     runs-on: ${{ matrix.os }}
-    
+
     strategy:
       fail-fast: false
       matrix:
@@ -31,7 +31,25 @@ jobs:
     - name: Install tox
       run: |
         python -m pip install --upgrade pip
-        pip install tox    
+        pip install tox
     - name: Test
       run: |
         tox -e ${{ matrix.tox_env }}
+
+  linting:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: "3.7"
+    - name: Install tox
+      run: |
+        python -m pip install --upgrade pip
+        pip install tox
+    - name: Linting
+      run: |
+        tox -e linting,rewrite
