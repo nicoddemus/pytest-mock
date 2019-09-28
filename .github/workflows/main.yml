@@ -10,20 +10,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: ["3.7"]
-        #python: ["2.7", "3.5", "3.6", "3.7"]
+        python: ["2.7", "3.5", "3.6", "3.7"]
         os: [ubuntu-latest, windows-latest]
         include:
-#          - python: "2.7"
-#            tox_env: "py27"
-#          - python: "3.5"
-#            tox_env: "py35"
-#          - python: "3.6"
-#            tox_env: "py36"
+          - python: "2.7"
+            tox_env: "py27"
+          - python: "3.5"
+            tox_env: "py35"
+          - python: "3.6"
+            tox_env: "py36"
           - python: "3.7"
             tox_env: "py37"
-          - python: "3.7"
-            tox_env: "norewrite"
 
     steps:
     - uses: actions/checkout@v1
@@ -75,13 +72,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install wheel
     - name: Build package
-      env:
-        SETUPTOOLS_SCM_PRETEND_VERSION: "1.6.1.dev"
       run: |
         python setup.py sdist bdist_wheel
-    - name: Publish package to TestPyPI
+    - name: Publish package to PyPI
+      if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@master
       with:
         user: __token__
-        password: ${{ secrets.test_pypi_token }}
-        repository_url: https://test.pypi.org/legacy/
+        password: ${{ secrets.pypi_token }}
